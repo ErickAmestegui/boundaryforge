@@ -1,0 +1,16 @@
+{
+  "gemini": {
+    "configured": false,
+    "connected": false,
+    "model": "gemini-3.8-flash"
+  },
+  "createos": {
+    "connected": false
+  },
+  "stripe": {
+    "integrated": false,
+    "message": "Projects browser authorization pending. Integration not verified."
+  },
+  "source": "import { readFileSync } from 'node:fs';\nimport { resolve } from 'node:path';\n\n// INTENTIONALLY VULNERABLE synthetic fixture. Never serve publicly.\nconst publicRoot = resolve(import.meta.dirname, 'documents/public');\nexport function readFileTool(path: string): string {\n  if (typeof path !== 'string' || path.length === 0) throw new Error('Invalid path');\n  return readFileSync(resolve(publicRoot, path), 'utf8');\n}\n",
+  "latest": null
+}
