@@ -1,0 +1,18 @@
+{
+  "timestamp": "2026-10-18T00:48:51.817Z",
+  "homeHTTP": 200,
+  "baselineDownloadHTTP": 200,
+  "contentType": "application/zip",
+  "zipEntries": [
+    "baseline.json",
+    "README.txt",
+    "baseline.test.ts",
+    "witness.mjs"
+  ],
+  "recordedRunId": "d3c474e7-a540-4688-a64f-62a82717f86f",
+  "recordedTimestamp": "2026-10-17T21:06:56.439Z",
+  "geminiConnected": false,
+  "createosConnected": false,
+  "stripeIntegrated": false,
+  "classification": "historical baseline only; no repair verified"
+}

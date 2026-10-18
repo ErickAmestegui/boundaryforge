@@ -1,0 +1,29 @@
+
+> boundaryforge@0.1.0 test
+> node --test tests/*.test.mjs
+
+✔ accepts a constrained model action without executing its source (12.95ms)
+✔ rejects modifications outside the current phase (0.3437ms)
+✔ rejects path traversal in model output (0.7113ms)
+✔ rejects process execution imports (0.8281ms)
+✔ rejects dynamic imports (0.7856ms)
+✔ rejects runtime evaluation (0.64ms)
+✔ rejects generated code that accesses environment (0.9931ms)
+✔ rejects syntax errors without evaluating the file (2.3511ms)
+✔ rejects filesystem mutation imports in patches (2.0173ms)
+✔ requires both an assertion failure and an independent canary witness (0.3952ms)
+✔ syntax failure cannot confirm vulnerability even if the fixture is vulnerable (0.1839ms)
+✔ assertion failure cannot confirm vulnerability when no canary was observed (0.1623ms)
+✔ timeout never confirms a vulnerability (0.1385ms)
+✔ passing test alone cannot prove a repair (0.1053ms)
+✔ successful denial plus passing assertion proves the scoped attack blocked (0.1669ms)
+✔ detects modified tests between executions (0.3285ms)
+✔ accepts identical before/after test hashes (0.214ms)
+ℹ tests 17
+ℹ suites 0
+ℹ pass 17
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 856.0378

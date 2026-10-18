@@ -1,0 +1,91 @@
+{
+  "id": "d3c474e7-a540-4688-a64f-62a82717f86f",
+  "type": "maintainer-authored baseline; not Gemini-generated",
+  "timestamp": "2026-10-17T21:06:56.439Z",
+  "safety": {
+    "sandboxId": "sb-01m55s5541nepbqr81ycktv24j",
+    "egress": {
+      "id": "sb-01m55s5541nepbqr81ycktv24j",
+      "egress": [
+        "127.0.0.1"
+      ]
+    },
+    "egressProbe": {
+      "result": {
+        "stdout": "{\"blocked\": true, \"error\": \"[Errno 111] Connection refused\"}\n",
+        "stderr": "",
+        "exit_code": 0
+      },
+      "exec_ms": 19.84
+    },
+    "namespaceProbe": {
+      "result": {
+        "stdout": "{\"uid\":65534,\"routes\":\"\"}\n",
+        "stderr": "",
+        "exit_code": 0
+      },
+      "exec_ms": 19.747
+    },
+    "checkedAt": "2026-10-17T21:06:58.306Z"
+  },
+  "baseline": {
+    "command": [
+      "unshare",
+      "--net",
+      "--",
+      "setpriv",
+      "--reuid=65534",
+      "--regid=65534",
+      "--clear-groups",
+      "--bounding-set=-all",
+      "--no-new-privs",
+      "node",
+      "--permission",
+      "--allow-fs-read=/tmp/boundaryforge/d3c474e7-a540-4688-a64f-62a82717f86f",
+      "--disable-proto=throw",
+      "--max-old-space-size=128",
+      "--test-reporter=tap",
+      "/tmp/boundaryforge/d3c474e7-a540-4688-a64f-62a82717f86f/baseline.test.ts"
+    ],
+    "exitCode": 0,
+    "stdout": "TAP version 13\n# Subtest: welcome remains available\nok 1 - welcome remains available\n  ---\n  duration_ms: 1.076062\n  type: 'test'\n  ...\n# Subtest: manual remains available\nok 2 - manual remains available\n  ---\n  duration_ms: 0.249579\n  type: 'test'\n  ...\n1..2\n# tests 2\n# suites 0\n# pass 2\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 13.676858\n",
+    "stderr": "",
+    "durationMs": 72,
+    "termination": null,
+    "testSha256": null,
+    "startedAt": "2026-10-17T21:06:59.703Z",
+    "finishedAt": "2026-10-17T21:06:59.952Z",
+    "providerDurationMs": 97.605,
+    "sandboxId": "sb-01m55s5541nepbqr81ycktv24j"
+  },
+  "witness": {
+    "command": [
+      "unshare",
+      "--net",
+      "--",
+      "setpriv",
+      "--reuid=65534",
+      "--regid=65534",
+      "--clear-groups",
+      "--bounding-set=-all",
+      "--no-new-privs",
+      "node",
+      "--permission",
+      "--allow-fs-read=/tmp/boundaryforge/d3c474e7-a540-4688-a64f-62a82717f86f",
+      "--disable-proto=throw",
+      "--max-old-space-size=128",
+      "/tmp/boundaryforge/d3c474e7-a540-4688-a64f-62a82717f86f/witness.mjs"
+    ],
+    "exitCode": 0,
+    "stdout": "{\"path\":\"../private/CANARY.txt\",\"canaryAccessed\":true,\"value\":\"BOUNDARYFORGE_SYNTHETIC_CANARY\\n\",\"error\":null}\n",
+    "stderr": "",
+    "durationMs": 50,
+    "termination": null,
+    "testSha256": null,
+    "startedAt": "2026-10-17T21:06:59.954Z",
+    "finishedAt": "2026-10-17T21:07:00.181Z",
+    "providerDurationMs": 75.76,
+    "sandboxId": "sb-01m55s5541nepbqr81ycktv24j"
+  },
+  "passed": true
+}

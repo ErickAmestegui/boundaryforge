@@ -1,0 +1,24 @@
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { validateAction, classifyAttack, verifyIntegrity } from '../src/validation.mjs';
+
+const valid = { action: 'write_file', path: 'generated-attack.test.ts', hypothesis: 'Parent traversal may escape the public root.', code: "import { test } from 'node:test'; import assert from 'node:assert/strict'; import { readFileTool } from './readFileTool.ts'; test('canary blocked', () => assert.throws(() => readFileTool('../private/CANARY.txt')));" };
+test('accepts a constrained model action without executing its source', () => assert.equal(validateAction(valid, 'write_file').path, valid.path));
+test('rejects modifications outside the current phase', () => assert.throws(() => validateAction({ ...valid, action: 'apply_patch', path: 'readFileTool.ts' }, 'write_file')));
+test('rejects path traversal in model output', () => assert.throws(() => validateAction({ ...valid, path: '../.env.local' }, 'write_file')));
+test('rejects process execution imports', () => assert.throws(() => validateAction({ ...valid, code: valid.code + "import { exec } from 'node:child_process';" }, 'write_file')));
+test('rejects dynamic imports', () => assert.throws(() => validateAction({ ...valid, code: valid.code + "import('node:fs');" }, 'write_file')));
+test('rejects runtime evaluation', () => assert.throws(() => validateAction({ ...valid, code: valid.code + "eval('1');" }, 'write_file')));
+test('rejects generated code that accesses environment', () => assert.throws(() => validateAction({ ...valid, code: valid.code + 'process.env.GEMINI_API_KEY;' }, 'write_file')));
+test('rejects syntax errors without evaluating the file', () => assert.throws(() => validateAction({ ...valid, code: valid.code + 'function {' }, 'write_file')));
+test('rejects filesystem mutation imports in patches', () => assert.throws(() => validateAction({ action: 'apply_patch', path: 'readFileTool.ts', hypothesis: valid.hypothesis, code: "import { writeFileSync } from 'node:fs'; export function readFileTool(path: string) { return ''; }" }, 'apply_patch')));
+const failedAssertion = { exitCode: 1, stdout: 'ERR_ASSERTION\n# fail 1', termination: null };
+const leaked = { exitCode: 0, stdout: JSON.stringify({ canaryAccessed: true, error: null }) };
+test('requires both an assertion failure and an independent canary witness', () => assert.equal(classifyAttack(failedAssertion, leaked), 'vulnerability_confirmed'));
+test('syntax failure cannot confirm vulnerability even if the fixture is vulnerable', () => assert.equal(classifyAttack({ exitCode: 1, stdout: 'SyntaxError' }, leaked), 'execution_error'));
+test('assertion failure cannot confirm vulnerability when no canary was observed', () => assert.equal(classifyAttack(failedAssertion, { exitCode: 0, stdout: '{"canaryAccessed":false}' }), 'execution_error'));
+test('timeout never confirms a vulnerability', () => assert.equal(classifyAttack({ ...failedAssertion, termination: 'timeout' }, leaked), 'timeout'));
+test('passing test alone cannot prove a repair', () => assert.equal(classifyAttack({ exitCode: 0, stdout: '# pass 1\n# fail 0' }, leaked), 'inconclusive'));
+test('successful denial plus passing assertion proves the scoped attack blocked', () => assert.equal(classifyAttack({ exitCode: 0, stdout: '# pass 1\n# fail 0' }, { exitCode: 0, stdout: '{"canaryAccessed":false,"error":{"message":"Access denied"}}' }), 'attack_blocked'));
+test('detects modified tests between executions', () => assert.equal(verifyIntegrity('a'.repeat(64), { testSha256: 'a'.repeat(64) }, { testSha256: 'b'.repeat(64) }), false));
+test('accepts identical before/after test hashes', () => assert.equal(verifyIntegrity('a'.repeat(64), { testSha256: 'a'.repeat(64) }, { testSha256: 'a'.repeat(64) }), true));

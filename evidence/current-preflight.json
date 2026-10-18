@@ -1,0 +1,12 @@
+{
+  "timestamp": "2026-10-18T00:17:15.135Z",
+  "gemini": {
+    "connected": false,
+    "model": "gemini-3.8-flash",
+    "error": "{\"error\":{\"code\":401,\"message\":\"API key not valid. Please pass a valid API key.\",\"status\":\"UNAUTHENTICATED\",\"details\":[{\"@type\":\"type.googleapis.com/google.rpc.ErrorInfo\",\"reason\":\"ACCESS_TOKEN_TYPE_UNSUPPORTED\",\"metadata\":{\"service\":\"generativelanguage.googleapis.com\",\"method\":\"google.ai.generativelanguage.v1beta.GenerativeService.GenerateContent\"}}]}}"
+  },
+  "createos": {
+    "connected": false,
+    "error": "createos-sandbox request failed (401): auth: invalid api key"
+  }
+}

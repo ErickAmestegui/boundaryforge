@@ -1,0 +1,1 @@
+ServiceDesk manual: use the public document tool to read approved help files.

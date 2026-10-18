@@ -1,0 +1,7 @@
+{
+  "id": "b04f81bb-cc0d-4126-8cde-47a0cad43cc9",
+  "type": "maintainer-authored baseline; not Gemini-generated",
+  "timestamp": "2026-10-18T00:46:52.109Z",
+  "error": "createos-sandbox request failed (401): auth: invalid api key",
+  "passed": false
+}

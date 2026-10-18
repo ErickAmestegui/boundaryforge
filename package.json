@@ -1,0 +1,24 @@
+{
+  "name": "boundaryforge",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Break it. Patch it. Prove it. Synthetic agent security testing with execution evidence.",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "start": "node --env-file-if-exists=.env.local src/server.mjs",
+    "preflight": "node --env-file-if-exists=.env.local scripts/preflight.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "baseline": "node --env-file-if-exists=.env.local scripts/baseline.mjs"
+  },
+  "dependencies": {
+    "@google/genai": "^2.30.0",
+    "@nodeops-createos/sandbox": "^0.8.2",
+    "diff": "^9.0.0",
+    "fflate": "^0.8.3",
+    "typescript": "5.9.3",
+    "zod": "^4.6.7"
+  }
+}
